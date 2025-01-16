@@ -15,4 +15,6 @@ What code to write for Flights problem
                 - input parameters
                 - what it returns (in all cases, so None included)
                 - any exceptions raised?
+
+The attached code is a student solution for the problem requirements
 """
