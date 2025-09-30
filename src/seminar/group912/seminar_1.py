@@ -1,8 +1,29 @@
 """
+Basic git operations to get you started
+    -> clone - bring a remote repository to my local computer (retain all git information)
+    -> commit - notify git which changes you want it to remember and store
+    -> push - push my changes back to the remote repository
+
+NB!
+    -> git - a source control version system
+    -> github.com - a web platform for managing git repositories
+
+"""
+
+"""
 1. Given 2 integers a and b, return True if one of them is 10 or if their sum is 10
 """
 
-print("Hello group 912!")
+
+def function_for_value_10(a: int, b: int) -> None:
+    if a == 10 or b == 10 or a + b == 10:
+        print("true")
+    else:
+        print("false")
+
+
+function_for_value_10(1, 9)
+function_for_value_10("4", "6")
 
 """
 2. Write a Python program which iterates the integers from 1 to 50. 
@@ -16,7 +37,6 @@ print("Hello group 912!")
     - the average, minimum, maximum and median temperature,
     - a new list with the values converted to Fahrenheit.
 """
-
 
 """
 4. Given a non-empty string like "Code" return a string like "CCoCodCode"
