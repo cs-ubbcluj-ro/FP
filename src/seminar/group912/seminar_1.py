@@ -2,6 +2,8 @@
 1. Given 2 integers a and b, return True if one of them is 10 or if their sum is 10
 """
 
+print("Hello group 912!")
+
 """
 2. Write a Python program which iterates the integers from 1 to 50. 
     - For multiples of three print "Fizz" instead of the number and for the multiples of five print "Buzz". 
