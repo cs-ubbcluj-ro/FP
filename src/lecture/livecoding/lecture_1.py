@@ -8,3 +8,4 @@ Problem statement:
     4. Print out all primes numbers etc. in ascending order, without duplicates :)
 """
 print("Hello World")
+print("An eventful first lecture :(")
