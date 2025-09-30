@@ -1,3 +1,5 @@
+print("Hello group 911!")
+
 """
 1. Given 2 integers a and b, return True if one of them is 10 or if their sum is 10
 """
@@ -14,7 +16,6 @@
     - the average, minimum, maximum and median temperature,
     - a new list with the values converted to Fahrenheit.
 """
-
 
 """
 4. Given a non-empty string like "Code" return a string like "CCoCodCode"
