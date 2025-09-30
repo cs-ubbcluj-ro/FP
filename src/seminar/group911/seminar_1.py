@@ -1,9 +1,40 @@
 print("Hello group 911!")
+"""
+Basics of working with git:
+    1. clone -> create a local (on your laptop) copy of the remote repository; this local copy is linked with its 
+    remote version
+    2. commit -> you record the changes on your laptop to the local copy of the git repository; (at this point, the
+    changes do not show up on the remote repository
+    3. push -> update the remote repository with the changes you made locally
+"""
 
 """
 1. Given 2 integers a and b, return True if one of them is 10 or if their sum is 10
 """
+a = 5  # first, a receives the type from the right hand side expression, then it receives its value
+b = 6
 
+
+# print(str(a) + str(b))  # str() convert to string (str is the Python data type for string)
+#
+# a = "5"
+# b = "911"
+#
+# print(type(a))
+# print(type(b))
+#
+# print(int(a) + int(b))
+
+
+def function_10(a: int, b: int) -> bool:
+    if a == 10 or b == 10 or a + b == 10:
+        return True
+    else:
+        return False
+
+
+print(function_10(a, b))
+print(function_10("1", "0"))
 """
 2. Write a Python program which iterates the integers from 1 to 50. 
     - For multiples of three print "Fizz" instead of the number and for the multiples of five print "Buzz". 
