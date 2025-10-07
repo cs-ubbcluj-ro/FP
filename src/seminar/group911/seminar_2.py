@@ -81,6 +81,22 @@ def to_str(city: dict) -> str:
 """
 
 
+def add_city(city_list: list) -> bool:
+    city_name = input("Enter city name: ")
+
+    for city in city_list:
+        if city_name == get_city_name(city):
+            return False
+
+    # Error in case the value cannot be converted to a base 10 int
+    city_pop = int(input("Enter city population: "))
+    city_county = input("Enter city county: ")
+
+    new_city = create_city(city_name, city_pop, city_county)
+    city_list.append(new_city)
+    return True
+
+
 def display_cities(cities_list) -> None:
     print("\nList of all cities:")
     for city in cities_list:
@@ -115,6 +131,19 @@ def start():
         if option == 2:
             # It's ok to add a function in order to keep the program's main loop clean
             display_cities(cities_list)
+        elif option == 4:
+
+            # print("Local values:")
+            # print(locals())
+
+            # print("Global values:")
+            # print(globals())
+
+            if add_city(cities_list) is True:
+                print("City added successfully")
+            else:
+                print("Failed to add city")
+
         elif option == 6:
             print("Bye bye")
             break
