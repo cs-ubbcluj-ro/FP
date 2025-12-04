@@ -1,6 +1,6 @@
 from enum import Enum
 
-from lecture.livecoding.lecture9.bakery_object import BakeryObject
+from lecture.livecoding.bakery.domain.bakery_object import BakeryObject
 
 
 class ProductType(Enum):
