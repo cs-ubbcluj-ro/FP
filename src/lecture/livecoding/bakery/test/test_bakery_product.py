@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from lecture.livecoding.bakery.domain.bakery_product import Product, ProductType
+from lecture.livecoding.bakery.domain.product import Product, ProductType
 
 
 class TestBakeryProduct(TestCase):

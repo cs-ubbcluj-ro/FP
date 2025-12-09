@@ -1,0 +1,5 @@
+100,White Bread,BREAD
+101,Chocolate Chip Cookies,PASTRY
+102,Cinnamon Raisin Buns,PASTRY
+103,Chocolate Cake,PASTRY
+104,Pancakes,PANCAKES

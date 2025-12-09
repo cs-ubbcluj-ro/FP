@@ -1,45 +1,42 @@
 from lecture.livecoding.bakery.domain.bakery_object import BakeryObject
-from lecture.livecoding.bakery.domain.bakery_product import Product, ProductType
-from lecture.livecoding.bakery.repo.binary_file_repo import BinaryFileRepository
+from lecture.livecoding.bakery.domain.ingredient import IngredientAmount, Units
+from lecture.livecoding.bakery.domain.product import Product
 
 
 class Recipe(BakeryObject):
-    def __init__(self, object_id: int, name: str, instructions: str, product: Product):
+    def __init__(self, object_id: int, name: str, ingredients: list[IngredientAmount], instructions: str,
+                 product: Product, quantity: int, quantity_unit: Units):
         super().__init__(object_id, name)
+        self._ingredients = ingredients
         self._instructions = instructions
         self._product = product
+        self._quantity_value = quantity
+        self._quantity_units = quantity_unit
 
     @property
     def product(self):
         return self._product
 
     @property
+    def ingredients(self):
+        # FIXME The list of ingredients can actually be modified via this property
+        return self._ingredients
+
+    @property
     def instructions(self):
         return self._instructions
 
+    @property
+    def quantity_value(self):
+        return self._quantity_value
+
+    @property
+    def quantity_unit(self):
+        return self._quantity_units
+
     def __str__(self):
-        return f"Recipe <{self.name}> with id=<{self.id}> for {self.product} is: <{self.instructions}>"
-
-
-if __name__ == "__main__":
-    white_bread_1kg = Product(100, "Simple white bread", ProductType.BREAD)
-    white_bread_recipe = Recipe(1000, "Simple white bread 1kg",
-                                "1 kg white bread: mix 600 g flour, 360 ml warm water, 12 g salt, 7 g instant yeast, (optional 20 g sugar + 20 g oil/butter), knead 10 min, rise 60–90 min, shape, proof 30–45 min, bake 30–35 min at 220 °C, cool.",
-                                white_bread_1kg)
-
-    bagels_500g = Product(101, "Bagels 500g", ProductType.BAGEL)
-    bagels_500g_recipe = Recipe(1001, "Bagels 500g recipe",
-                                "Bagels: mix 500 g flour, 280 ml warm water, 7 g instant yeast, 10 g salt, 20 g sugar; knead 10 min; rise 60 min; divide + shape rings; rest 20 min; boil 1 min/side in water with 1 tbsp sugar; bake 20–22 min at 220 °C.",
-                                bagels_500g)
-
-    recipe_repo = BinaryFileRepository("recipes.bin")
-    # recipe_repo.store(white_bread_recipe)
-    # recipe_repo.store(bagels_500g_recipe)
-
-    for r in recipe_repo:
-        print(r.name)
-        print(r.product)
-
-    # print(white_bread_recipe)
-    # print("-" * 20)
-    # print(bagels_500g_recipe)
+        result = f"Recipe - {self.id}, {self.name} with ingredients:\n"
+        for ingr in self.ingredients:
+            result += f"\tid {ingr.ingredient.id}, name {ingr.ingredient.name},quantity - {ingr.quantity} ({ingr.ingredient.unit.name}) \n"
+        result += f"recipe will result in {self.quantity_value} {self.quantity_unit.name} of product {self.product}"
+        return result

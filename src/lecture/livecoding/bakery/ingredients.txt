@@ -1,0 +1,20 @@
+300,Flour,GRAM
+301,Sugar,GRAM
+302,Butter,GRAM
+303,Milk,MILLILITER
+304,Water,MILLILITER
+305,Yeast,GRAM
+306,Salt,GRAM
+307,Eggs,GRAM
+308,Vanilla Extract,SPOONFUL
+309,Baking Powder,GRAM
+310,Baking Soda,GRAM
+311,Honey,MILLILITER
+312,Vegetable Oil,MILLILITER
+313,Cocoa Powder,GRAM
+314,Chocolate Chips,GRAM
+315,Raisins,GRAM
+316,Almonds,GRAM
+317,Cinnamon,SPOONFUL
+318,Brown Sugar,GRAM
+319,Cream,MILLILITER

@@ -1,7 +1,7 @@
 import pickle
 
 from lecture.livecoding.bakery.domain.bakery_object import BakeryObject
-from lecture.livecoding.bakery.domain.bakery_product import Product
+from lecture.livecoding.bakery.domain.product import Product
 from lecture.livecoding.bakery.repo.memory_repo import MemoryRepository
 
 
@@ -16,9 +16,9 @@ class BinaryFileRepository(MemoryRepository):
             # We assume we start from an empty repo
             print("Starting from an empty repo")
 
-    def store(self, product: BakeryObject):
+    def store(self, element: BakeryObject):
         # We override store to make sure the new Product is also saved into the file :)
-        super().store(product)
+        super().store(element)
         """
         In case calling super().store(product) resulted in a DuplicateIDError, the line below does not run; the method
         exits with an Exception that is propagated to whoever called the function

@@ -5,9 +5,8 @@ from lecture.livecoding.bakery.domain.bakery_object import BakeryObject
 
 class ProductType(Enum):
     BREAD = 1,
-    CROISSANT = 2,
-    BAGEL = 3,
-    PASTRY = 4
+    PASTRY = 2,
+    PANCAKES = 3
 
 
 class Product(BakeryObject):
@@ -20,9 +19,4 @@ class Product(BakeryObject):
         return self._type
 
     def __str__(self):
-        return super().__str__() + " - " + str(self.type)
-
-
-if __name__ == "__main__":
-    br = Product(1000, "White bread", ProductType.BREAD)
-    print(br)
+        return f"Product - {self.id}, {self.name}, type {self.type}"

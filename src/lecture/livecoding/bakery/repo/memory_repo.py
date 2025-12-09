@@ -1,5 +1,5 @@
 from lecture.livecoding.bakery.domain.bakery_object import BakeryObject
-from lecture.livecoding.bakery.domain.bakery_product import Product
+from lecture.livecoding.bakery.domain.product import Product
 
 
 class BakeryError(Exception):
@@ -31,17 +31,19 @@ class MemoryRepository:
     def __init__(self):
         self._data = {}
 
-    def store(self, product: BakeryObject):
-        if product.id in self._data:
+    def store(self, element: BakeryObject):
+        if element.id in self._data:
             # Signal that we have a problem
             raise DuplicateIDError("Duplicate ID")
-        self._data[product.id] = product
+        self._data[element.id] = element
 
-    def remove(self, product: BakeryObject):
+    def remove(self, element: BakeryObject):
         pass
 
-    def find(self, product_id: int) -> BakeryObject:
-        pass
+    def find(self, element_id: int) -> BakeryObject:
+        if element_id not in self._data:
+            raise BakeryError(f"Element with id - {element_id} not found in repository")
+        return self._data[element_id]
 
     def __len__(self):
         return len(self._data)

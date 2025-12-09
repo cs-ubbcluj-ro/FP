@@ -2,7 +2,7 @@
 How to assemble the layered program
 """
 from lecture.livecoding.bakery.repo.binary_file_repo import BinaryFileRepository
-from lecture.livecoding.bakery.repo.text_file_repo import RecipeTextFileRepo
+from lecture.livecoding.bakery.repo.abstract_text_file_repo import RecipeTextFileRepo
 
 """
     Initialize the repository layer
