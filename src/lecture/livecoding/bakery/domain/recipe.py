@@ -14,24 +14,24 @@ class Recipe(BakeryObject):
         self._quantity_units = quantity_unit
 
     @property
-    def product(self):
+    def product(self) -> Product:
         return self._product
 
     @property
-    def ingredients(self):
+    def ingredients(self) -> list[IngredientAmount]:
         # FIXME The list of ingredients can actually be modified via this property
         return self._ingredients
 
     @property
-    def instructions(self):
+    def instructions(self) -> str:
         return self._instructions
 
     @property
-    def quantity_value(self):
+    def quantity_value(self) -> int:
         return self._quantity_value
 
     @property
-    def quantity_unit(self):
+    def quantity_unit(self) -> Units:
         return self._quantity_units
 
     def __str__(self):

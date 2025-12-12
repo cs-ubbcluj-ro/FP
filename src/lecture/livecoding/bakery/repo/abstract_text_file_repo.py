@@ -3,6 +3,12 @@ from lecture.livecoding.bakery.repo.memory_repo import MemoryRepository
 
 
 class AbstractTextFileRepo(MemoryRepository):
+    """
+    This is an abstract class (abstract = it cannot/should not be instantiated)
+    Its job is to figure out when save_file and load_file must be called
+    Derived classes should implement those methods for storing BakeyObject instances
+    """
+
     def __init__(self, file_name: str):
         super().__init__()
         self._file_name = file_name
@@ -15,9 +21,6 @@ class AbstractTextFileRepo(MemoryRepository):
     def remove(self, element: BakeryObject):
         super().remove(element)
         # self._save_file()
-
-    def find(self, element_id: int) -> BakeryObject:
-        return super().find(element_id)
 
     def _load_file(self):
         raise NotImplementedError("Must be implemented in subclasses")

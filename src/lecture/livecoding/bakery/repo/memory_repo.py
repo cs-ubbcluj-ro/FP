@@ -50,7 +50,7 @@ class MemoryRepository:
 
     def __iter__(self):
         """
-        Methods returns an iterator over the repository
+        Method returns an iterator over the repository
 
         What is a iterator?
             - a way to visit each element of a data structure, so that no elements are left out, and each element is
@@ -59,3 +59,14 @@ class MemoryRepository:
             https://refactoring.guru/design-patterns/iterator
         """
         return RepositoryIterator(self._data.values())
+
+
+if __name__ == "__main__":
+    r = MemoryRepository()
+    r.store(BakeryObject(100, "a"))
+    r.store(BakeryObject(101, "a"))
+    r.store(BakeryObject(102, "a"))
+
+    # iterator!
+    for elem in r: # r.__iter__ is called to obtain the iterator
+        print(elem) # the __next__ method of the iterator is called for each element
