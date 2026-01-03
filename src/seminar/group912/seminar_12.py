@@ -41,3 +41,19 @@ What classes you need to write:
             - this only displays where the human has hit or missed
             - achieve this by overriding the __str__
 """
+from texttable import Texttable
+
+board_data = [[0 for i in range(6)] for j in range(6)]
+
+board_data[2][1] = 1
+board_data[2][2] = 1
+board_data[2][3] = 1
+
+board_data[3][3] = 1
+board_data[4][3] = 1
+board_data[5][3] = 1
+
+t = Texttable()
+for row in board_data:
+    t.add_row(row)
+print(t.draw())
