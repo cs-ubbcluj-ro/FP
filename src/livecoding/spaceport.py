@@ -6,4 +6,12 @@ Basic git operations
     4. push -> synchronizes all the local commits to the server copy of the git repository
     5. pull -> download the changes that other people have pushed to the server git repository
 """
-print("Hello world!")
+# print("Hello world!")
+
+operator_name = input("What is your name?")
+
+# Using string concatenation
+print("Welcome to the control tower " + operator_name)
+
+# Using Python f-strings
+print(f"Welcome again to the control tower {operator_name}")
