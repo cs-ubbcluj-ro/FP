@@ -18,9 +18,7 @@ For example, code `2026` has checksum `10`, so its status is `MANUAL CHECK`.
 Build the application in the stages below. **Each completed stage must leave a runnable program.** A single Python file, `spaceport.py`, is sufficient. Here, modular means dividing responsibilities between functions; multiple source files are not required.
 
 ### Stage 1 — The control tower is online
-
 Ask the operator for their name and one landing code. Greet the operator and display the received code with a meaningful label.
-
 At this stage, the program may simply report that inspection is not yet available, then end normally.
 
 Example:
