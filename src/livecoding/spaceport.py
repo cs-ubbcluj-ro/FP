@@ -39,22 +39,43 @@ def get_flight_status(checksum: int) -> str:
         return "HOLD"
 
 
-operator_name = input("What is your name?")
+def create_report(flight_code: int, checksum: int, status: str) -> dict:
+    # Python's dict is a collection of key, value pairs, where keys are unique
+    return {"CODE": flight_code, "CHECKSUM": checksum, "STATUS": status}
 
+
+operator_name = input("What is your name?")
 # Using string concatenation
 print("Welcome to the control tower " + operator_name)
 
 # Using Python f-strings
-print(f"Welcome again to the control tower {operator_name}")
+# print(f"Welcome again to the control tower {operator_name}")
 
 # for those of you using macOS
 # in Trminal: git --version
 # Will prompt to install Xcode command line tools that include git
 
-landing_code = input("Landing code: ")
-landing_code_int = int(landing_code)
-checksum = calculate_checksum(landing_code_int)
-status = get_flight_status(checksum)
-# print(checksum, get_flight_status(checksum))
+# Empty Python list
+flight_reports_list = []
 
-print(f"Flight with code {landing_code} has checksum {checksum} and status {status}")
+while True:
+    print()
+    print("1. Read landing code information")
+    print("2. Exit")
+
+    option = input(">")
+    if option == "1":
+        landing_code = input("Landing code: ")
+        landing_code_int = int(landing_code)
+        checksum = calculate_checksum(landing_code_int)
+        status = get_flight_status(checksum)
+
+        flight_report = create_report(landing_code_int, checksum, status)
+        print(flight_report)
+        flight_reports_list.append(flight_report)
+        # print(f"Flight with code {landing_code} has checksum {checksum} and status {status}")
+    elif option == "2":
+        break
+    else:
+        # None of the valid options
+        print("Invalid option. Aliens !!??")
