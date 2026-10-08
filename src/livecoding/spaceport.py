@@ -7,75 +7,137 @@ Basic git operations
     5. pull -> download the changes that other people have pushed to the server git repository
 """
 
+"""
+Spaceport Control: Clear for Landing?
 
-# print("Hello world!")
+Landing codes are assumed to contain only decimal digits, with no sign.
+"""
 
-# print, input are builtin Python 3 functions
-# input returns an str
 
-def calculate_checksum(flight_code: int) -> int:
+# Stage 2: calculate the checksum and decide the landing status.
+def sum_digits(code: int) -> int:
     """
-    Calculates flight code checksum
-    :param flight_code: The flight code
-    :return: The digit checksum
+    Return the sum of the decimal digits of code.
+
+    :param code: A non-negative integer.
+    :return: The digit sum as an integer; return 0 for code 0.
     """
-    code = 0
+    total = 0
 
-    while flight_code > 0:
-        last_digit = flight_code % 10
-        code += last_digit
-        # / is real number division (result is a float), // is integer division (result is an int)
-        flight_code = flight_code // 10
-    return code
+    # For code 0, the loop is skipped and the total remains 0.
+    while code > 0:
+        digit = code % 10
+        total = total + digit
+        code = code // 10
+
+    return total
 
 
-def get_flight_status(checksum: int) -> str:
-    if checksum % 3 == 0:
+def landing_status(checksum: int) -> str:
+    """
+    Return the landing status determined by checksum modulo 3.
+
+    :param checksum: A non-negative integer.
+    :return: "CLEARED" for remainder 0,
+             "MANUAL CHECK" for remainder 1,
+          or "HOLD" for remainder 2.
+    """
+    remainder = checksum % 3
+
+    if remainder == 0:
         return "CLEARED"
-    elif checksum % 3 == 1:
+    elif remainder == 1:
         return "MANUAL CHECK"
     else:
-        # None of the conditions above
         return "HOLD"
 
 
-def create_report(flight_code: int, checksum: int, status: str) -> dict:
-    # Python's dict is a collection of key, value pairs, where keys are unique
-    return {"CODE": flight_code, "CHECKSUM": checksum, "STATUS": status}
+# Stage 3: group the inspection results in a dictionary.
+def build_report(code: int) -> dict:
+    """
+    Create an inspection report without reading or printing anything.
+
+    :param code: A non-negative integer.
+    :return: A new dictionary with the keys "code", "checksum", and "status".
+    """
+    checksum = sum_digits(code)
+    status = landing_status(checksum)
+
+    report = {"code": code, "checksum": checksum, "status": status}
+    return report
 
 
-operator_name = input("What is your name?")
-# Using string concatenation
-print("Welcome to the control tower " + operator_name)
+def print_report(report):
+    """
+    Display an inspection report and its landing message.
 
-# Using Python f-strings
-# print(f"Welcome again to the control tower {operator_name}")
+    :param report: A dictionary in the format returned by build_report.
+    :return: None. The report is displayed and is not modified.
+    """
+    print("Landing code:", report["code"])
+    print("Checksum:", report["checksum"])
+    print("Status:", report["status"])
 
-# for those of you using macOS
-# in Trminal: git --version
-# Will prompt to install Xcode command line tools that include git
-
-# Empty Python list
-flight_reports_list = []
-
-while True:
-    print()
-    print("1. Read landing code information")
-    print("2. Exit")
-
-    option = input(">")
-    if option == "1":
-        landing_code = input("Landing code: ")
-        landing_code_int = int(landing_code)
-        checksum = calculate_checksum(landing_code_int)
-        status = get_flight_status(checksum)
-
-        flight_report = create_report(landing_code_int, checksum, status)
-        print(flight_report)
-        flight_reports_list.append(flight_report)
-        # print(f"Flight with code {landing_code} has checksum {checksum} and status {status}")
-    elif option == "2":
-        break
+    if report["status"] == "CLEARED":
+        print("Welcome! You may land.")
+    elif report["status"] == "MANUAL CHECK":
+        print("Please wait while we find someone responsible.")
     else:
-        # None of the valid options
-        print("Invalid option. Aliens !!??")
+        print("Stay in orbit. The coffee machine is blocking the runway.")
+
+
+def main():
+    """
+    Run the console menu and keep the flight log for this session.
+
+    Landing-code input must contain one or more decimal digits (0-9).
+    :return: None. The function ends when the operator chooses "0".
+    """
+    # Stage 1: greet the operator. input() returns a string.
+    operator_name = input("Operator name: ")
+
+    # We use f-strings to make it easier to insert variable values into the string
+    print(f"Welcome to Spaceport Control {operator_name}!")
+
+    # Stage 5: this local list stores reports in inspection order.
+    flight_log = []
+
+    # Stage 4: keep showing the menu until the operator chooses to exit.
+    while True:
+        print()
+        print("1. Inspect a landing code")
+        print("2. Show the flight log")
+        print("0. Close the control tower")
+        choice = input("Choose an option: ")
+
+        if choice == "1":
+            code_text = input("Landing code (non-negative integer): ")
+            code = int(code_text)
+
+            report = build_report(code)
+            print_report(report)
+            flight_log.append(report)
+
+        elif choice == "2":
+            print("Flight log")
+
+            if len(flight_log) == 0:
+                print("No spaceships inspected yet.")
+            else:
+                for report in flight_log:
+                    print()
+                    print_report(report)
+
+            print("Total inspections:", len(flight_log))
+
+        elif choice == "0":
+            print("Control tower closed. Goodbye, " + operator_name + "!")
+            break
+
+        else:
+            print("Aliens!?")
+
+
+# Start the console application when this file is run directly.
+if __name__ == "__main__":
+    main()
