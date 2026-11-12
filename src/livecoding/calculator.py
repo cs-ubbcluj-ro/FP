@@ -43,7 +43,8 @@ def create_rational(numerator: int = 0, denominator: int = 1):
         #   (3) If no program function handled the exception, the program crashes
         raise ValueError("Denominator cannot be 0")
     # FIXME Simplify the rational number
-    return [numerator, denominator]
+    return {"num": numerator, "denom": denominator}
+    # return [numerator, denominator]
 
 
 def get_numerator(q):
@@ -55,11 +56,19 @@ def get_numerator(q):
     Returns:
         The numerator (int)
     """
-    return q[0]
+    # return q[0]
+    return q["num"]
 
 
 def get_denominator(q):
-    return q[1]
+    # return q[1]
+    return q["denom"]
+
+
+def to_str(q) -> str:
+    # FIXME Improve the representation (return 2, not 2/1, put the - sign in front of the numerator)
+    # return str(get_numerator(q)) + "/" +str(get_denominator(q))
+    return f"{get_numerator(q)}/{get_denominator(q)}"
 
 
 def add_rational(q1, q2):
@@ -125,7 +134,7 @@ test_rational_add()
 q1 = create_rational(1, 2)
 q2 = create_rational(1, 2)
 q_sum = add_rational(q1, q2)
-print(q_sum)
+print(to_str(q_sum))
 
 
 # ------------------------------------------------------------
@@ -135,6 +144,46 @@ print(q_sum)
 #   (1) current value : rational number (initially 0, when starting the program)
 #   (2) history of previous values: list<rational numbers>
 # ------------------------------------------------------------
+def create_calculator():
+    """
+    Initialize a new calculator with value 0/1 and no undo history
+    Returns:
+        The new calculator
+    """
+    return {"value": create_rational(), "history": []}
+
+
+def get_value_calculator(calculator):
+    return calculator["value"]
+
+
+def set_value_calculator(calculator, q):
+    calculator["value"] = q
+    calculator["history"].append(q)  # add the value to the undo list
+
+
+def add_calculator(calculator, q):
+    """
+    Add a number to the calculator. The calculator is updated with the new sum and number history
+    Args:
+        calculator: The calculator's state
+        q: The rational number
+    """
+    new_value = add_rational(get_value_calculator(calculator), q)
+    set_value_calculator(calculator, new_value)
+
+
+def test_calculator():
+    c = create_calculator()
+    add_calculator(c, create_rational(1, 2))
+    add_calculator(c, create_rational(1, 2))
+
+    val = get_value_calculator(c)
+    assert get_numerator(val) == 4
+    assert get_denominator(val) == 4
+
+
+test_calculator()
 
 
 # ------------------------------------------------------------
