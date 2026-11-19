@@ -1,7 +1,6 @@
-"""
-Created on Nov 1, 2016
+"""Instances, dynamic attributes, self and Python's naming conventions.
 
-@author: Arthur
+Author: Arthur
 """
 
 
@@ -11,51 +10,50 @@ class FirstClass:
 
 class SecondClass:
     def __init__(self):
+        # Initialize the expected attributes so each instance starts predictably.
         self.test_one = "Test One"
         self._test_two = "Test Two"
         self.__test_three = "Test Three"
 
+    def get_public_value(self):
+        """Return the value stored in this instance's public attribute."""
+        return self.test_one
 
-if __name__ == "__main__":
+
+def main():
     x = FirstClass()
-
-    '''
-        What is the type of x ?
-    '''
     print(type(x))
 
-    '''
-        An empty class, such as FirstClass can be used as a Pascal record or a C struct
-    '''
+    # Ordinary Python instances can acquire attributes dynamically.
+    # In our application classes we normally initialize them in __init__.
     x.name = "Alice"
     x.salary = 100
     x.salary += 20
-    print("Name of x=", x.name)
-    print("Salary of x=", x.salary)
-
     y = FirstClass()
     y.name = "Bob"
     y.salary = 1000
-    print("Name of y=", y.name)
-    print("Salary of y=", y.salary)
+    print("Name and salary of x:", x.name, x.salary)
+    print("Name and salary of y:", y.name, y.salary)
 
-    '''
-    What happens if we add another field on-the-fly?
-    '''
     y.hello = "Say hello"
     print(y.hello)
-    # Field 'hello' is not a part of instance 'x'
+    # Predict what happens if you uncomment this line: x has no hello attribute.
     # print(x.hello)
 
-    '''
-    How about the more complex, SecondClass example?
-    '''
     obj = SecondClass()
     print(obj.test_one)
+    # These calls use the same function with the same instance as self.
+    print(obj.get_public_value())
+    print(SecondClass.get_public_value(obj))
+
+    # _test_two is non-public by convention, but access is technically possible.
+    # Uncomment for demonstration only; client code should respect the interface.
     # print(obj._test_two)
 
-    '''
-    This is Python's name mangling at work
-    '''
-    # print(obj.__test_three)
-    # print(obj._SecondClass__test_three)
+    # __test_three is name-mangled, not protected by an access restriction.
+    # print(obj.__test_three)              # Raises AttributeError.
+    # print(obj._SecondClass__test_three)  # Works, but bypasses the interface.
+
+
+if __name__ == "__main__":
+    main()

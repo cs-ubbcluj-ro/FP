@@ -1,28 +1,26 @@
+"""Console interaction: use the calculator's public interface."""
 from examples.ex38_rational_calc.calculator import Calculator
 from examples.ex38_rational_calc.domain import Rational
 
 
 class UI:
     def __init__(self, calculator):
-        self._commands = {'+': self.add_number, 'c': self.clear, 'u': self.undo, '?': self.count}
         self._calculator = calculator
+        self._commands = {"+": self.add_number, "c": self.clear,
+                          "u": self.undo, "?": self.count}
 
     def _print_menu(self):
-        """
-        Print out the calculator menu
-        """
         print("Calculator:")
-        print("   + for adding a rational number")
-        print("   c to clear the calculator")
-        print("   u to undo the last operation")
-        print("   ? to count the rational numbers created")
+        print("   + to add a rational number")
+        print("   c to clear the total and undo history")
+        print("   u to undo the last addition")
+        print("   ? to count all rational numbers created")
         print("   x to close the calculator")
 
     def add_number(self):
-        a = int(input("Give numerator:"))
-        b = int(input("Give denominator:"))
-        q = Rational(a, b)
-        self._calculator.add(q)
+        numerator = int(input("Give numerator: "))
+        denominator = int(input("Give denominator: "))
+        self._calculator.add(Rational(numerator, denominator))
 
     def undo(self):
         self._calculator.undo()
@@ -31,32 +29,28 @@ class UI:
         self._calculator.reset()
 
     def count(self):
-        print("Number of rational instances created so far: " + str(self._calculator.get_number_count()))
+        print("Number of Rational instances created so far:",
+              self._calculator.get_number_count())
 
     def start(self):
-
-        self._calculator.reset()
+        # Use the supplied calculator's existing state; do not reset it here.
         while True:
             self._print_menu()
-            print("Total: " + str(self._calculator.total))
-            _command = input().strip().lower()
-            # Exit program
-            if _command == 'x':
+            print("Total:", self._calculator.total)  # Uses Rational.__str__.
+            command = input("Command: ").strip().lower()
+            if command == "x":
                 return
-                # Invalid option
-            if _command not in self._commands:
+            if command not in self._commands:
                 print("Bad command")
-            # Run user option
+                continue
             try:
-                self._commands[_command]()
-            except ValueError as ve:
-                print("error - " + str(ve))
+                self._commands[command]()
+            except ValueError as error:
+                # Invalid integers, a zero denominator, or an empty undo history.
+                print("Error:", error)
 
 
 if __name__ == "__main__":
-    # Initialize the calculator class
     calc = Calculator()
-    # This allows us to use the UI class with any implementation of the Calculator
     ui = UI(calc)
-    # Start the UI
     ui.start()
